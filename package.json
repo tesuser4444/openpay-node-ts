@@ -1,16 +1,33 @@
 {
   "name": "openpay",
-  "description": "Openpay library",
-  "version": "2.0.1",
+  "description": "Openpay API client for Node.js — typed, promise-friendly, and battle-tested",
+  "version": "3.0.0",
+  "license": "Apache-2.0",
+  "author": "Openpay",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openpay/openpay-node"
+  },
+  "keywords": [
+    "openpay",
+    "payments",
+    "api",
+    "mexico",
+    "colombia",
+    "peru"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "dependencies": {
     "underscore": "1.13.6",
     "urllib": "^2.36.1"
   },
-  "main": "lib/openpay.js",
-  "types": "lib/openpay.d.ts",
-  "files": [
-    "lib/**/*"
-  ],
   "devDependencies": {
     "@types/node": "^26.1.1",
     "@types/underscore": "^1.13.0",
@@ -21,8 +38,5 @@
     "build": "tsc --project tsconfig.json",
     "prepublishOnly": "npm run build",
     "test": "mocha"
-  },
-  "engines": {
-    "node": ">=0.6.x"
   }
 }
