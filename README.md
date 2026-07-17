@@ -1,6 +1,6 @@
 ![Openpay nodejs](https://www.openpay.mx/img/github/nodejs.jpg)
 
-> **📦 v3.x (this branch):** Full TypeScript rewrite with strict mode, SOLID architecture,
+> **📦 v4.x (this branch):** Full TypeScript rewrite with strict mode, SOLID architecture,
 > typed interfaces for every resource, and Node.js ≥ 20 LTS.
 > The callback API is 100 % backwards-compatible with v2.x.
 > See [Upgrading from v2.x](#upgrading-from-v2x) below.
@@ -110,11 +110,11 @@ openpay.<resource>.<method>(params..., callback);
 All methods accept a callback as the **last** argument.
 
 The callback signature is `function(error, body, response)`:
-- `error` — `null` when the response status is 200, 201, or 204; otherwise an `Error` (or `OpenpayError` in v3)
+- `error` — `null` when the response status is 200, 201, or 204; otherwise an `Error` (or `OpenpayError` in v4)
 - `body` — the parsed JSON response body (`null` on error)
 - `response` — `{ statusCode, headers }`
 
-## Architecture (v3.x)
+## Architecture (v4.x)
 
 The library follows **SOLID** principles and clean TypeScript patterns:
 
@@ -165,7 +165,7 @@ src/
 // v2.x
 new Openpay(merchantId, privateKey, isProduction);  // old v2 signature
 
-// v3.x
+// v4.x
 new Openpay(merchantId, privateKey, countryCode, isProduction);
 ```
 
