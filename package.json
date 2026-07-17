@@ -7,10 +7,19 @@
     "urllib": "^2.36.1"
   },
   "main": "lib/openpay.js",
+  "types": "lib/openpay.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "devDependencies": {
-    "mocha": "10.2.0"
+    "@types/node": "^26.1.1",
+    "@types/underscore": "^1.13.0",
+    "mocha": "10.2.0",
+    "typescript": "^7.0.2"
   },
   "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "prepublishOnly": "npm run build",
     "test": "mocha"
   },
   "engines": {
