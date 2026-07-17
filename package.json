@@ -1,20 +1,25 @@
 {
-  "name": "openpay",
-  "description": "Openpay API client for Node.js — typed, promise-friendly, and battle-tested",
+  "name": "@neo-cheems/openpay",
+  "description": "Openpay API client for Node.js — typed, SOLID, and battle-tested",
   "version": "3.0.0",
   "license": "Apache-2.0",
-  "author": "Openpay",
+  "author": "neo-cheems",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openpay/openpay-node"
+    "url": "https://github.com/tesuser4444/openpay-node-ts"
   },
+  "bugs": {
+    "url": "https://github.com/tesuser4444/openpay-node-ts/issues"
+  },
+  "homepage": "https://github.com/tesuser4444/openpay-node-ts#readme",
   "keywords": [
     "openpay",
     "payments",
     "api",
     "mexico",
     "colombia",
-    "peru"
+    "peru",
+    "typescript"
   ],
   "engines": {
     "node": ">=20.0.0"
@@ -24,13 +29,14 @@
   "files": [
     "lib/**/*"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "underscore": "1.13.6",
     "urllib": "^2.36.1"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
-    "@types/underscore": "^1.13.0",
     "mocha": "10.2.0",
     "typescript": "^7.0.2"
   },

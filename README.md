@@ -13,7 +13,7 @@
 ## Installation
 
 ```bash
-npm install openpay
+npm install @neo-cheems/openpay
 ```
 
 ## Quick Start
@@ -21,7 +21,7 @@ npm install openpay
 ### JavaScript (callback API — backwards compatible)
 
 ```js
-var Openpay = require('openpay');
+var Openpay = require('@neo-cheems/openpay');
 var openpay = new Openpay('your_merchant_id', 'your_private_key', 'mx', false);
 
 openpay.charges.create({
@@ -44,14 +44,14 @@ openpay.charges.create({
 ### TypeScript (typed — zero `any`)
 
 ```ts
-import Openpay from 'openpay';
+import Openpay from '@neo-cheems/openpay';
 import type {
   ChargeRequest,
   CustomerRequest,
   PayoutRequest,
   Callback,
-} from 'openpay/types';
-import { OpenpayError } from 'openpay/errors';
+} from '@neo-cheems/openpay/types';
+import { OpenpayError } from '@neo-cheems/openpay/errors';
 
 const openpay = new Openpay('your_merchant_id', 'your_private_key', 'mx', false);
 
@@ -87,8 +87,8 @@ Full API documentation available at http://docs.openpay.mx/.
 
 ```js
 // Import
-var Openpay = require('openpay');
-// or: import Openpay from 'openpay';
+var Openpay = require('@neo-cheems/openpay');
+// or: import Openpay from '@neo-cheems/openpay';
 
 // Instantiation (country code is optional, defaults to 'mx')
 var openpay = new Openpay('your_merchant_id', 'your_private_key', 'mx', false);
@@ -163,7 +163,7 @@ src/
 
 ```js
 // v2.x
-new Openpay(merchantId, privateKey, isProduction);
+new Openpay(merchantId, privateKey, isProduction);  // old v2 signature
 
 // v3.x
 new Openpay(merchantId, privateKey, countryCode, isProduction);
@@ -171,7 +171,7 @@ new Openpay(merchantId, privateKey, countryCode, isProduction);
 
 ### What still works
 
-- All `require('openpay')` / `require('../lib/openpay')` calls
+- All `require('@neo-cheems/openpay')` / `require('openpay')` calls (legacy compat)
 - Every resource method and signature
 - The `error, body, response` callback pattern
 - `setMerchantId()`, `setPrivateKey()`, `setProductionReady()`, `setTimeout()`
