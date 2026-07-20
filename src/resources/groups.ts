@@ -1,31 +1,12 @@
-import { BaseResource } from '../base-resource';
+import { BaseResource, NestedCollection } from '../base-resource';
 import type { HttpClient } from '../http-client';
 import type { Callback, OpenpayConfig, QueryParams } from '../types';
 
 // ── Group Sub-Resources ────────────────────────────────────────────
 
-class GroupCustomerCards extends BaseResource {
+class GroupCustomerCards extends NestedCollection {
   constructor(config: OpenpayConfig, httpClient: HttpClient) {
-    super(config, httpClient, `groups/${config.merchantId}/customers`);
-  }
-
-  create(customerId: string, data: unknown, callback: Callback): void {
-    this.request('POST', this.url(`${customerId}/cards`), data, callback);
-  }
-
-  list(customerId: string, callback: Callback): void;
-  list(customerId: string, data: QueryParams, callback: Callback): void;
-  list(customerId: string, dataOrCb: QueryParams | Callback, cb?: Callback): void {
-    const { query, cb: resolvedCb } = this.resolveListParams(dataOrCb, cb);
-    this.request('GET', this.urlWithQuery(`${customerId}/cards`, query), undefined, resolvedCb!);
-  }
-
-  get(customerId: string, cardId: string, callback: Callback): void {
-    this.request('GET', this.url(`${customerId}/cards/${cardId}`), undefined, callback);
-  }
-
-  delete(customerId: string, cardId: string, callback: Callback): void {
-    this.request('DELETE', this.url(`${customerId}/cards/${cardId}`), undefined, callback);
+    super(config, httpClient, `groups/${config.merchantId}/customers`, 'cards');
   }
 }
 

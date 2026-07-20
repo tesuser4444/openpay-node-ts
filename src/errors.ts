@@ -49,10 +49,3 @@ export class NetworkError extends OpenpayError {
     this.name = 'NetworkError';
   }
 }
-
-export class TimeoutError extends OpenpayError {
-  constructor(timeoutMs: number) {
-    super(`Request timed out after ${timeoutMs}ms`, 408, null);
-    this.name = 'TimeoutError';
-  }
-}

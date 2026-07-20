@@ -32,9 +32,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "urllib": "^2.36.1"
-  },
   "devDependencies": {
     "@types/node": "^26.1.1",
     "mocha": "10.2.0",

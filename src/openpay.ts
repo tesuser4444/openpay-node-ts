@@ -23,14 +23,9 @@ import { GroupsResource } from './resources/groups';
  * openpay.charges.create({ amount: 100, ... }, (err, body, res) => { ... });
  * ```
  */
+const COUNTRY_CODES: readonly CountryCode[] = ['mx', 'pe', 'co'];
+
 class Openpay {
-  // ── Static Base URLs (per-country, mutable for backward compat) ──
-
-  static BASE_URL = 'https://api.openpay.mx';
-  static API_VERSION = '/v1/';
-  static SANDBOX_URL = 'https://sandbox-api.openpay.mx';
-  static SANDBOX_API_VERSION = '/v1/';
-
   // ── Instance State ───────────────────────────────────────────────
 
   private config: OpenpayConfig;
@@ -39,19 +34,19 @@ class Openpay {
 
   // ── Resources (public API surface) ───────────────────────────────
 
-  public merchant: MerchantResource;
-  public charges: ChargesResource;
-  public payouts: PayoutsResource;
-  public fees: FeesResource;
-  public plans: PlansResource;
-  public cards: CardsResource;
-  public customers: CustomersResource;
-  public webhooks: WebhooksResource;
-  public tokens: TokensResource;
-  public checkouts: CheckoutsResource;
-  public stores: StoresResource;
-  public pse: PseResource;
-  public groups: GroupsResource;
+  public merchant!: MerchantResource;
+  public charges!: ChargesResource;
+  public payouts!: PayoutsResource;
+  public fees!: FeesResource;
+  public plans!: PlansResource;
+  public cards!: CardsResource;
+  public customers!: CustomersResource;
+  public webhooks!: WebhooksResource;
+  public tokens!: TokensResource;
+  public checkouts!: CheckoutsResource;
+  public stores!: StoresResource;
+  public pse!: PseResource;
+  public groups!: GroupsResource;
 
   // ── Constructor ──────────────────────────────────────────────────
 
@@ -68,31 +63,14 @@ class Openpay {
       privateKey,
       isSandbox,
       timeout: 90_000,
+      countryCode: COUNTRY_CODES.includes(countryCode) ? countryCode : 'mx',
     };
 
     // Create HTTP clients (DIP: resources depend on these abstractions)
     this.apiHttpClient = new UrllibHttpClient();
     this.storeHttpClient = new StoreHttpClient();
 
-    // Set base URLs per country
-    this.setBaseUrl(countryCode);
-
-    // Instantiate resources & inject dependencies
-    this.merchant = new MerchantResource(this.config, this.apiHttpClient);
-    this.charges = new ChargesResource(this.config, this.apiHttpClient);
-    this.payouts = new PayoutsResource(this.config, this.apiHttpClient);
-    this.fees = new FeesResource(this.config, this.apiHttpClient);
-    this.plans = new PlansResource(this.config, this.apiHttpClient);
-    this.cards = new CardsResource(this.config, this.apiHttpClient);
-    this.customers = new CustomersResource(this.config, this.apiHttpClient);
-    this.webhooks = new WebhooksResource(this.config, this.apiHttpClient);
-    this.tokens = new TokensResource(this.config, this.apiHttpClient);
-    this.checkouts = new CheckoutsResource(this.config, this.apiHttpClient);
-    this.pse = new PseResource(this.config, this.apiHttpClient);
-    this.groups = new GroupsResource(this.config, this.apiHttpClient);
-
-    // Stores uses its own HTTP client (different base URL format)
-    this.stores = new StoresResource(this.config, this.storeHttpClient);
+    this.rebuildResources();
   }
 
   // ── Configuration Setters ────────────────────────────────────────
@@ -121,27 +99,13 @@ class Openpay {
     this.rebuildResources();
   }
 
-  /** Per-country base URL configuration. */
+  /** Change the country (per instance) and rebuild resources. */
   setBaseUrl(countryCode: CountryCode): void {
-    console.log('setting base url from country');
-    switch (countryCode) {
-      case 'pe':
-        console.log('Country Peru');
-        Openpay.BASE_URL = 'https://api.openpay.pe';
-        Openpay.SANDBOX_URL = 'https://sandbox-api.openpay.pe';
-        break;
-      case 'co':
-        console.log('Country Colombia');
-        Openpay.BASE_URL = 'https://api.openpay.co';
-        Openpay.SANDBOX_URL = 'https://sandbox-api.openpay.co';
-        break;
-      case 'mx':
-        console.log('Country Mexico');
-        console.log('Default value');
-        break;
-      default:
-        console.error('Error country code, setting mx default.');
-    }
+    this.config = {
+      ...this.config,
+      countryCode: COUNTRY_CODES.includes(countryCode) ? countryCode : 'mx',
+    };
+    this.rebuildResources();
   }
 
   // ── Helpers ──────────────────────────────────────────────────────

@@ -17,6 +17,7 @@ export interface OpenpayConfig {
   privateKey: string;
   isSandbox: boolean;
   timeout: number;
+  countryCode: CountryCode;
 }
 
 // ── Callback ───────────────────────────────────────────────────────

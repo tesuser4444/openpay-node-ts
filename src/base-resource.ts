@@ -62,3 +62,39 @@ export abstract class BaseResource {
     return query ? `${this.baseUrl}/${segment}${query}` : `${this.baseUrl}/${segment}`;
   }
 }
+
+/**
+ * A collection nested one level under a parent id, e.g.
+ * `{merchantId}/customers/{customerId}/cards`. Covers the common
+ * create/list/get/delete shape shared by most customer sub-resources;
+ * extend it to add resource-specific methods (capture, refund, update…).
+ */
+export class NestedCollection extends BaseResource {
+  constructor(
+    config: OpenpayConfig,
+    httpClient: HttpClient,
+    parentBaseUrl: string,
+    protected readonly collection: string,
+  ) {
+    super(config, httpClient, parentBaseUrl);
+  }
+
+  create(parentId: string, data: unknown, callback: Callback): void {
+    this.request('POST', this.url(`${parentId}/${this.collection}`), data, callback);
+  }
+
+  list(parentId: string, callback: Callback): void;
+  list(parentId: string, data: QueryParams, callback: Callback): void;
+  list(parentId: string, dataOrCb: QueryParams | Callback, cb?: Callback): void {
+    const { query, cb: resolvedCb } = this.resolveListParams(dataOrCb, cb);
+    this.request('GET', this.urlWithQuery(`${parentId}/${this.collection}`, query), undefined, resolvedCb!);
+  }
+
+  get(parentId: string, childId: string, callback: Callback): void {
+    this.request('GET', this.url(`${parentId}/${this.collection}/${childId}`), undefined, callback);
+  }
+
+  delete(parentId: string, childId: string, callback: Callback): void {
+    this.request('DELETE', this.url(`${parentId}/${this.collection}/${childId}`), undefined, callback);
+  }
+}
