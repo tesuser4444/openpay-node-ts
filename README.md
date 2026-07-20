@@ -7,7 +7,7 @@
 
 ## Requirements
 
-- **Node.js ≥ 20.0.0** (active LTS)
+- **Node.js ≥ 24.0.0** (active LTS)
 - TypeScript ≥ 5.x (optional — types are bundled)
 
 ## Installation
