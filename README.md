@@ -1,7 +1,7 @@
 ![Openpay nodejs](https://www.openpay.mx/img/github/nodejs.jpg)
 
 > **📦 v4.x (this branch):** Full TypeScript rewrite with strict mode, SOLID architecture,
-> typed interfaces for every resource, and Node.js ≥ 20 LTS.
+> typed interfaces for every resource, and Node.js ≥ 24 LTS.
 > The callback API is 100 % backwards-compatible with v2.x.
 > See [Upgrading from v2.x](#upgrading-from-v2x) below.
 
@@ -155,7 +155,7 @@ src/
 
 ### What changed
 
-- **Node.js ≥ 20** is now required (was `>=0.6.x`)
+- **Node.js ≥ 24** is now required (was `>=0.6.x`)
 - The library is written in **TypeScript** with `strict: true`
 - The `underscore` dependency has been removed (native ES2022 replacements)
 - Errors are `OpenpayError` instances with `.statusCode`, `.description`, `.category`, `.requestId`
